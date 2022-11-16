@@ -1,0 +1,40 @@
+body{
+    background-color: green;
+}
+
+#form_container{
+    width: 35vw;
+    height: 60vh;
+    background-color: white;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
+
+#form_header{
+    text-align: center;
+    margin: 3vh;
+}
+
+#form_content_container{
+    width:60%;
+    margin:auto;
+    text-align: center;
+}
+
+#register_btn{
+    text-align: center;
+    background-color: green;
+    color: white;
+    margin-top: 2vh;
+    width:10vw;
+    height:5vh;
+}
+
+.input{
+    height: 4vh;
+    width: 20vw;
+    margin-top:1vh;
+    margin-bottom:1vh;
+}

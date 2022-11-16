@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="content_container">
+        <div id="form_container">
+            <h2 id="form_header">Simple Form</h2>
+
+            <div id="form_content_container">
+                <input type="text" id="student_id" class="input" placeholder="Student ID">
+                <input type="email" id="email" class="input" placeholder="Email">
+                <input type="text" id="full_name" class="input" placeholder="Full Name">
+                <input type="text" id="color" class="input" placeholder="Favorite Color">
+                <input type="text" id="food" class="input" placeholder="Favorite Food">
+
+                <button id="register_btn">Sign Up</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          //Add Firebase CDN Configuration from Project settings
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        import {getDatabase, ref, set, child, get} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js"
+
+        const database = getDatabase();
+
+        const student_id = document.getElementById('student_id');
+        const email = document.getElementById('email');
+        const full_name = document.getElementById('full_name');
+        const fav_color = document.getElementById('color');
+        const fav_food = document.getElementById('food');
+
+        const submit = document.getElementById('register_btn');
+
+        function register(){
+            const dbRef = ref(database);
+
+            get(child(dbRef, "Users/" + student_id.value)).then((snapshot) => {
+                if(snapshot.exists()){
+                    alert("User already exists!");
+                }
+                else {
+                    set(ref(database, "Users/" + student_id.value), {
+                        student_id: student_id.value,
+                        email: email.value,
+                        full_name: full_name.value,
+                        fav_color: fav_color.value,
+                        fav_food: fav_food.value
+                    }).then(()=>{
+                        alert("User was successfully added!");
+                    }).catch((error) => {
+                        alert("Error: " + error);
+                    })
+                }
+            })
+        }
+
+        submit.addEventListener('click', register);
+
+
+
+
+
+      </script>
+</body>
+</html>
